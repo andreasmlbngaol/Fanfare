@@ -22,7 +22,7 @@ data class User(
     @Column(nullable = true, name = "full_name")
     val fullName: String? = null,
 
-    @Column(nullable = true)
+    @Column(nullable = true, name = "hashed_password")
     val hashedPassword: String? = null,
 
     @Column(nullable = false, name = "created_at")
@@ -30,5 +30,4 @@ data class User(
 
     @Column(nullable = false, name = "updated_at")
     val  updatedAt: Instant = Instant.now()
-
 )

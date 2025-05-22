@@ -36,7 +36,7 @@ class AuthService(
         fullName: String? = null
     ): User {
         val user = userRepository.findByEmail(email.trim()) ?: userRepository.findByUsername(username.trim())
-        if(user != null) throw responseException(CONFLICT, "User not found")
+        if(user != null) throw responseException(CONFLICT, "User already exists")
 
         return userRepository.save(
             User(
@@ -76,7 +76,7 @@ class AuthService(
 
         refreshTokenRepository.deleteByUserIdAndHashedToken(user.id, hashed)
 
-        return storeAndGetToken(user.id, refreshToken)
+        return storeAndGetToken(user.id, hashed)
     }
 
     private fun storeAndGetToken(userId: Long, oldRefreshToken: String? = null): TokenPair {
